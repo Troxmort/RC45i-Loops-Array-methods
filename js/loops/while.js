@@ -6,3 +6,5 @@ while (i <= 10) {
     console.log(`El resultado de ${i}x${numTabla} = ${multiplicacion}`);
     i++;
 }
+addEventListener
+addEventListener
