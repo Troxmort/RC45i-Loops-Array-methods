@@ -95,20 +95,10 @@ const tableBodyHtml = document.getElementById('tableBody');
 
 console.dir(tableBodyHtml.innerHTML);
 
-//   Asi trabaja For OF
-
-//   for (let pais of paisesLatinoamerica) {
-
-//     console.log(pais.nombre);
-
-//   }   
-
-// Asi trabaja ForEach
 
 paisesLatinoamerica.forEach((pais, index) => {
 
   const posicion = String(index + 1).padStart(2, '0');
-  // document.write(`${posicion} - ${pais.nombre} <br>`);
 
   tableBodyHtml.innerHTML += 
   `<tr>
@@ -118,6 +108,5 @@ paisesLatinoamerica.forEach((pais, index) => {
   <td>${pais.habitantes}</td>
   <td>${pais.ubicacion} </td>
   </tr>`;
-
 
 })
