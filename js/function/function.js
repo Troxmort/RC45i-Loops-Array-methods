@@ -5,21 +5,55 @@ const producto4 = 14.34;
 const dolar = 470;
 const iva = 1.21;
 const ganancia = 1.35;
-const interesFinanciacion = 1.40;
 
 function calcularPrecios (valorProducto, cuotas) {
-    const precioContado = parseInt(valorProducto * dolar * iva * ganancia);
-    const precioFinanciado = parseInt(precioContado * interesFinanciacion);
-    const precioCuota = +(precioFinanciado / cuotas).toFixed(2);
-
+    const precioContado = calcularPrecioContado(valorProducto);
+    const precioFinanciado = calcularPrecioLista(precioContado, cuotas);
+    const precioCuota = calcularPrecioCuotas(precioFinanciado, cuotas)
 
     
     document.write(`<p><strong>PRECIO CONTADO: </strong> $ ${precioContado}</p>`)
+
+
+    if (!cuotas) return;
+    
     document.write(`<p><strong>${cuotas} cuotas de $ ${parseInt(precioCuota / 12)}</strong> </p>`)
     document.write(`<p><small>PRECIO LISTA: </small>$ ${precioFinanciado}</p>`)
 }
 
-calcularPrecios(producto1, 12);
+function calcularPrecioContado(precioProd) {
+    const precio = parseInt(precioProd * dolar * iva * ganancia);
+    return precio;
+}
+
+const calcularPrecioLista = function(precioContado, cuotas) {
+    let interesFinanciacion;
+    switch (cuotas) {
+        case 3:
+            interesFinanciacion = 1.15;
+            break;
+        case 6:
+            interesFinanciacion = 1.28;
+            break;
+        case 12:
+            interesFinanciacion = 1.42;
+            break;
+        case 18:
+            interesFinanciacion = 1.78;
+            break
+        default:
+            interesFinanciacion = 1.40;
+            break;
+    }
+    const precioLista = parseInt(precioContado * interesFinanciacion);
+    return precioLista;
+}
+
+const calcularPrecioCuotas = (precioFinanciado, cuotas) => {
+    const cuota = +(precioFinanciado / cuotas).toFixed(2);
+    return cuota;
+}
+calcularPrecios(producto1);
 calcularPrecios(producto2, 6);
 calcularPrecios(producto3, 3);
 calcularPrecios(producto4, 18);
