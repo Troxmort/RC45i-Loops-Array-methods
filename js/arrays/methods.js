@@ -91,28 +91,19 @@ const paisesLatinoamerica = [
     },
   ];
 
-  // **Romper referencia entre arrays y objetos 
-  // !Se mantiene referencias 
-  // const array2 = array1; 
+const tableBodyHtml = document.getElementById('tableBody');
 
-  // ?Se rompe la referencia 
-  // const array2 = array1.map((val) => val); 
-  // const array2 = array1.slice(); 
-  // const array2 = [ ...array1 ]; 
-  // const array2 = Array.from(array1)
+paisesLatinoamerica.forEach((pais, index) => {
 
-  const arrayModificado = paisesLatinoamerica.map(function (pais){
+  const posicion = String(index + 1).padStart(2, '0');
 
-    const nameUpperCase = pais.nombre.toUpperCase();
-    const pop = new Intl.NumberFormat('es-AR', {
-        compactDisplay: 'short'
-    });
-    return {
-        name: nameUpperCase,
-        population: pop.format(pais.habitantes),
-    }
+  tableBodyHtml.innerHTML += 
+  `<tr>
+  <th scope="row">${posicion}</th>
+  <td>${pais.nombre}</td>
+  <td>${pais.capital}</td>
+  <td>${pais.habitantes}</td>
+  <td>${pais.ubicacion} </td>
+  </tr>`;
 
-  });
-
-  console.log(paisesLatinoamerica);
-  console.log(arrayModificado);
+})
