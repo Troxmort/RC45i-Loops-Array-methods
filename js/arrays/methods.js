@@ -239,19 +239,26 @@ function borrarPais(indice) {
 
 function calcularPoblacionTotal(listaPaises) {
 
-  const acumuladorTotal = listaPaises.reduce((acumulador, pais) => {
+  const acumuladorTotal = listaPaises.reduce((acumulador, item) => {
     
-    return acumulador += pais.habitantes;
+    acumulador += item.habitantes;
+
+    return acumulador;
 
   }, 0);
 
-  console.log(`Acumulador: ${acumuladorTotal}`);
+
+  const populationCell = document.getElementById('total');
+  
+  populationCell.innerText = acumuladorTotal
 
 }
 
 calcularPoblacionTotal(paisesLatinoamerica);
 
 function renderizarTable(arrayDePaises) {
+ calcularPoblacionTotal(arrayDePaises)
+
 
   tableBodyHtml.innerHTML = '';
 
@@ -264,8 +271,8 @@ function renderizarTable(arrayDePaises) {
     <th scope="row">${posicion}</th>
     <td>${pais.nombre}</td>
     <td>${pais.capital}</td>
-    <td>${pais.habitantes}</td>
     <td>${pais.ubicacion} </td>
+    <td class="text-center">${pais.habitantes}</td>
     <td>
       <button class="btn btn-danger" px-1" onclick="borrarPais(${index})"> <i class="fa-solid fa-trash"> </i></button>
     </td>
@@ -277,7 +284,7 @@ function renderizarTable(arrayDePaises) {
 
 renderizarTable(paisesLatinoamerica);
 
-function filtarPaises(params) {
+function filtrarPaises() {
   const paisesFiltrados = paisesLatinoamerica.filter((pais)=> {
     if (pais.habitantes >= 15000000) {
       return true;
