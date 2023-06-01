@@ -209,6 +209,10 @@ const copiaArray = Array.from(paisesLatinoamerica);
 
 const tableBodyHtml = document.getElementById('tableBody');
 
+const countriesForm = document.getElementById('countries-form');
+
+console.log(countriesForm);
+
 function pintarPaisesOriginales() {
   renderizarTable(paisesLatinoamerica);
 }
