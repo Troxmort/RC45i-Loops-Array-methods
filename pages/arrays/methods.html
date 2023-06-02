@@ -64,17 +64,37 @@
                                 </div>
                             </div>
                             <div class="mb-3">
+                                <label for="imagen" class="form-label">Imagen</label>
+                                <input type="url" min="0" name="imagen" class="form-control" id="imagen"
+                                    placeholder="https://flags-world.com/wp-content/uploads/2021/01/flag-of-bolivia_1.png">
+                            </div>
+                            <div class="mb3 col-6">
+                                <select class="form-select mb-3" required name="continentes" aria-label="continente">
+                                    <option selected></option>
+                                    <option value="africa">Continente Africa</option>
+                                    <option value="america">Continente America</option>
+                                    <option value="asia">Continente Asia</option>
+                                    <option value="europa">Continente Europa</option>
+                                    <option value="oceania">Continente Oceania</option>
+                                  </select>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <input type="checkbox" name="active" id="">
+                                <label for="">Activo</label>
+                            </div>
+                            <div class="mb-3">
                                 <button class="button-info btn btn-primary" type="submit">Cargar pais</button>
                             </div>
                         </div>
                     </form>
                 </div>
-
+                
             </div>
             <div class="col-6">
                 <table class="table table-striped table-primary m-3">
                     <thead>
                         <tr>
+                            <th scope="col">Bandera</th>
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Capital</th>
