@@ -237,7 +237,7 @@ function aplicarFiltroNombre(evtDesdeHTML) {
 
 }
 
-function borrarPais(indice) {
+function borrarPais(idBorrar) {
   // Ya no necesitamos trabajar con la copia
   // copiaArray.splice(indice, 1); 
 
@@ -246,9 +246,18 @@ function borrarPais(indice) {
 
   //Ahora trabajamos con el array original
 
-  paisesLatinoamerica.splice(indice, 1);
+  const idx = paisesLatinoamerica.findIndex(pais => pais.id === idBorrar);
+
+  //No encontro coincidencia
+  if (idx === -1 ) return swal('Error', 'El pais no se pudo borrar', 'error');
+
+  paisesLatinoamerica.splice(idx, 1);
+
   localStorage.setItem('paises', JSON.stringify(paisesLatinoamerica));
+
   calcularPoblacionTotal(paisesLatinoamerica);
+
+  renderizarTable(paisesLatinoamerica);
 
 }
 
@@ -296,7 +305,8 @@ function renderizarTable(arrayDePaises) {
     <td>${pais.ubicacion} </td>
     <td class="text-center">${pais.habitantes}</td>
     <td>
-      <button class="btn btn-danger" px-1" onclick="borrarPais(${index})"> <i class="fa-solid fa-trash"> </i></button>
+      <button class="btn btn-danger" px-1" onclick="borrarPais(${pais.id})"> <i class="fa-solid fa-trash"> </i></button>
+      <button class="btn btn-success" px-1" onclick="editarPais(${index})"> <i class="fa-solid fa-trash"> </i></button>
     </td>
     </tr>`;
 
@@ -326,7 +336,8 @@ countriesForm.addEventListener('submit', (evt) => {
     ubicacion: el.ubicacion.value,
     imagen: el.imagen.value,
     continente: el.continentes.value,
-    active: el.active.checked
+    active: el.active.checked,
+    id: Date.now()
   }
 
   paisesLatinoamerica.push(nuevoPais);
