@@ -217,6 +217,109 @@ const tableBodyHtml = document.getElementById('tableBody');
 
 const countriesForm = document.getElementById('countries-form');
 
+let editIndex;
+
+function editarPais(index) {
+  //Buscar el pais con el index provenciente del click en el boton editar
+  let pais = paisesLatinoamerica.find((pais, idx) => {
+    if (pais.id === index) {
+      editIndex = idx;
+      return true;
+    }
+  });
+
+  renderSubmitBtn();
+
+  //Rellenar el formulario con los datos del pais
+
+  if (!pais) {
+    swal('Error', 'No se encontro un pais', 'error')
+    return;
+  }
+
+  const el = countriesForm.elements;
+
+  countriesForm.elements.nombre.value = pais.nombre;
+  countriesForm.elements.capital.value = pais.capital;
+  countriesForm.elements.ubicacion.value = pais.ubicacion;
+  countriesForm.elements.habitantes.valueAsNumber = pais.habitantes;
+  countriesForm.elements.imagen.value = pais.imagen;
+  countriesForm.elements.continentes.value = pais.continente;
+  countriesForm.elements.continentes.value = pais.continente;
+  countriesForm.elements.active.checked = pais.active;
+
+}
+
+function agregarEditarPais(evt) {
+   //Prevenir comportamiento por defecto del navegador(recarga)
+   evt.preventDefault();
+
+   const el = evt.target.elements;
+ 
+   const pais = {
+     nombre: el.nombre.value,
+     capital: el.capital.value,
+     habitantes: el.habitantes.valueAsNumber,
+     ubicacion: el.ubicacion.value,
+     imagen: el.imagen.value,
+     continente: el.continentes.value,
+     active: el.active.checked,
+     id: Date.now()
+   }
+ 
+   if (editIndex) {
+    paisesLatinoamerica[editIndex] = pais;
+    editIndex = undefined;
+   } else {
+    paisesLatinoamerica.push(pais);
+   }
+ 
+   renderSubmitBtn()
+
+   //Guardamos el array en localStorage
+   localStorage.setItem('paises', JSON.stringify(paisesLatinoamerica));
+ 
+   //Pintamos nuestro array actualizado
+   // const data = JSON.parse(localStorage.getItem('pasies'));
+ 
+   renderizarTable(paisesLatinoamerica);
+ 
+   evt.target.reset();
+   el.nombre.focus();
+};
+
+function renderSubmitBtn() {
+  
+  const submitBtnHTML = document.getElementById('submit-btn');
+
+  if (editIndex) {
+    submitBtnHTML.innerText = 'Editar Pais';
+    submitBtnHTML.classList.add('btn-success');
+    submitBtnHTML.classList.remove('btn-primary');
+  }else {
+    submitBtnHTML.innerText = 'Cargar Pais';
+    submitBtnHTML.classList.remove('btn-success');
+    submitBtnHTML.classList.add('btn-primary');
+  }
+
+}
+
+function ordernarPaises(order) {
+  const valorOrdenamiento = order ? 1 : -1;
+  paisesLatinoamerica.sort((a, b) => {
+    if (a.nombre.toLowerCase() < b.nombre.toLowerCase()) {
+      return valorOrdenamiento;
+    } else if (a.nombre.toLowerCase() > b.nombre.toLowerCase()) {
+      return -valorOrdenamiento;
+    } else {
+      return 0;
+    }
+  });
+
+  renderizarTable(paisesLatinoamerica);
+};
+
+countriesForm.addEventListener('submit', (evento) => agregarEditarPais(evento));
 
 
 function pintarPaisesOriginales() {

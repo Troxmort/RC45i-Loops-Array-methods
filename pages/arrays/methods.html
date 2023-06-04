@@ -21,6 +21,8 @@
             <div class="col-12 col-lg-6">
                 <div class="p-3 mb-3 border border-primary">
                     <button class="btn btn-success" onclick="pintarPaisesOriginales()">TODOS LOS PAISES</button>
+                    <button class="btn btn-primary" onclick="ordernarPaises()">ORDENAR ⬇</button>
+                    <button class="btn btn-primary" onclick="ordernarPaises(true)">ORDENAR ⬆ </button>
                     <div class="my-3">
                         <label for="filtro" class="form-label">Filtrar por nombre</label>
 
@@ -83,7 +85,7 @@
                                 <label for="">Activo</label>
                             </div>
                             <div class="mb-3">
-                                <button class="button-info btn btn-primary" type="submit">Cargar pais</button>
+                                <button class="btn btn-primary" id="submit-btn" type="submit">Cargar pais</button>
                             </div>
                         </div>
                     </form>
