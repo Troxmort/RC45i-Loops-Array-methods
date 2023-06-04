@@ -202,7 +202,7 @@
 //     ubicacion: "Caribe"
 //   },
 //   {
-//     nombre: "Granada",
+  //     nombre: "Granada",
 //     capital: "Saint George's",
 //     habitantes: 112003,
 //     ubicacion: "Caribe"
@@ -218,12 +218,13 @@ const tableBodyHtml = document.getElementById('tableBody');
 const countriesForm = document.getElementById('countries-form');
 
 
+
 function pintarPaisesOriginales() {
   renderizarTable(paisesLatinoamerica);
 }
 
 function aplicarFiltroNombre(evtDesdeHTML) {
-
+  
   const valorFiltro = evtDesdeHTML.target.value.toLowerCase();
   const paisesFiltrados = paisesLatinoamerica.filter(function (pais) {
     const nombrePais = pais.nombre.toLowerCase();
@@ -249,7 +250,7 @@ function borrarPais(idBorrar) {
   const idx = paisesLatinoamerica.findIndex(pais => pais.id === idBorrar);
 
   //No encontro coincidencia
-  if (idx === -1 ) return swal('Error', 'El pais no se pudo borrar', 'error');
+  if (idx === -1) return swal('Error', 'El pais no se pudo borrar', 'error');
 
   paisesLatinoamerica.splice(idx, 1);
 
@@ -306,7 +307,7 @@ function renderizarTable(arrayDePaises) {
     <td class="text-center">${pais.habitantes}</td>
     <td>
       <button class="btn btn-danger" px-1" onclick="borrarPais(${pais.id})"> <i class="fa-solid fa-trash"> </i></button>
-      <button class="btn btn-success" px-1" onclick="editarPais(${index})"> <i class="fa-solid fa-trash"> </i></button>
+      <button class="btn btn-success" px-1" onclick="editarPais(${pais.id})"> <i class="fa-solid fa-pen-to-square"></i> </i></button>
     </td>
     </tr>`;
 
@@ -323,36 +324,7 @@ function filtrarPaises() {
   renderizarTable(paisesFiltrados);
 };
 
-countriesForm.addEventListener('submit', (evt) => {
-  //Prevenir comportamiento por defecto del navegador(recarga)
-  evt.preventDefault();
 
-  const el = evt.target.elements;
-
-  const nuevoPais = {
-    nombre: el.nombre.value,
-    capital: el.capital.value,
-    habitantes: el.habitantes.valueAsNumber,
-    ubicacion: el.ubicacion.value,
-    imagen: el.imagen.value,
-    continente: el.continentes.value,
-    active: el.active.checked,
-    id: Date.now()
-  }
-
-  paisesLatinoamerica.push(nuevoPais);
-
-  //Guardamos el array en localStorage
-  localStorage.setItem('paises', JSON.stringify(paisesLatinoamerica));
-
-  //Pintamos nuestro array actualizado
-  // const data = JSON.parse(localStorage.getItem('pasies'));
-
-  renderizarTable(paisesLatinoamerica);
-
-  evt.target.reset();
-  el.nombre.focus();
-});
 
 renderizarTable(paisesLatinoamerica);
 
